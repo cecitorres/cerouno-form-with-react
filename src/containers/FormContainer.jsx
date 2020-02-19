@@ -10,23 +10,16 @@ const INITIAL_STATE = [
   }
 ];
 
-class FormContainer extends Component {
-  constructor() {
-    super();
-    this.state = {
-      newUser: {
-        name: '',
-        age: ''
-      },
-      usersSaved: INITIAL_STATE
-    }
-    this.handleName = this.handleName.bind(this);
-    this.handleAge = this.handleAge.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleClearForm = this.handleClearForm.bind(this);
+class FormContainer extends Component {  
+  state = {
+    newUser: {
+      name: '',
+      age: ''
+    },
+    usersSaved: INITIAL_STATE
   }
 
-  handleName(e) {
+  handleName = (e) => {
     let value = e.target.value;
     this.setState(
       prevState => ({
@@ -38,7 +31,7 @@ class FormContainer extends Component {
     );
   }
 
-  handleAge(e) {
+  handleAge = (e) => {
     let value = e.target.value;
     this.setState(
       prevState => ({
@@ -50,7 +43,7 @@ class FormContainer extends Component {
     );
   }
 
-  handleFormSubmit(e) {
+  handleFormSubmit = (e) => {
     e.preventDefault();
     // console.log(this.state.newUser);
     let userData = this.state.newUser;
@@ -68,7 +61,7 @@ class FormContainer extends Component {
     ));
   }
 
-  handleClearForm(e) {
+  handleClearForm = (e) => {
     e.preventDefault();
     this.setState({
       newUser: {
@@ -87,12 +80,14 @@ class FormContainer extends Component {
             <Input
               name="name"
               type="text"
+              title="Nombre"
               value={this.state.newUser.name}
               placeholder="Ingresa tu nombre"
               handleChange={this.handleName}
             />
             <Input 
               name="age"
+              title="Edad"
               type="number"
               value={this.state.newUser.age}
               placeholder="Ingresa tu edad"
