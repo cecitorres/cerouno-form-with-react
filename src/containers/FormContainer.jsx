@@ -14,9 +14,22 @@ class FormContainer extends Component {
   state = {
     newUser: {
       name: '',
-      age: ''
+      age: '',
+      userName: ''
     },
     usersSaved: INITIAL_STATE
+  }
+
+  componentDidMount() {
+    const url = 'https://jsonplaceholder.typicode.com/users';
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        this.setState({
+          usersSaved: data
+        });
+      });
   }
 
   handleName = (e) => {
@@ -38,6 +51,19 @@ class FormContainer extends Component {
         newUser: {
           ...prevState.newUser,
           age: value
+        }
+      })
+    );
+  }
+
+  handleInput = (e) => {
+    let value = e.target.value;
+    let name = e.target.name;
+    this.setState(
+      prevState => ({
+        newUser: {
+          ...prevState.newUser,
+          [name]: value,
         }
       })
     );
@@ -83,7 +109,7 @@ class FormContainer extends Component {
               title="Nombre"
               value={this.state.newUser.name}
               placeholder="Ingresa tu nombre"
-              handleChange={this.handleName}
+              handleChange={this.handleInput}
             />
             <Input 
               name="age"
@@ -91,7 +117,15 @@ class FormContainer extends Component {
               type="number"
               value={this.state.newUser.age}
               placeholder="Ingresa tu edad"
-              handleChange={this.handleAge}
+              handleChange={this.handleInput}
+            />
+            <Input
+              name="userName"
+              type="text"
+              title="Nombre de usuario"
+              value={this.state.newUser.userName}
+              placeholder="Ingresa tu nombre"
+              handleChange={this.handleInput}
             />
             <Button
               action={this.handleFormSubmit}
